@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="fruitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="fruits">
+          <Key>
+            <PropertyRef Name="fruit_id" />
+          </Key>
+          <Property Name="fruit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fruit_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="fruit_quantity" Type="int" />
+          <Property Name="fruit_price" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="users_id" Type="int" />
+          <Property Name="order_date" Type="datetime" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="order_quantity" Type="int" />
+          <Property Name="fruit_id" Type="int" />
+          <Property Name="Total_Price" Type="decimal" Precision="21" Scale="2" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="users_password" Type="nvarchar" MaxLength="50" />
+          <Property Name="users_name" Type="nvarchar" MaxLength="60" />
+          <Property Name="types_user" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__orders__fruit_id__44FF419A">
+          <End Role="fruits" Type="Self.fruits" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fruits">
+              <PropertyRef Name="fruit_id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="fruit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__orders__users_id__440B1D61">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="users_id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fruitModelStoreContainer">
+          <EntitySet Name="fruits" EntityType="Self.fruits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__orders__fruit_id__44FF419A" Association="Self.FK__orders__fruit_id__44FF419A">
+            <End Role="fruits" EntitySet="fruits" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__orders__users_id__440B1D61" Association="Self.FK__orders__users_id__440B1D61">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="fruitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="fruit">
+          <Key>
+            <PropertyRef Name="fruit_id" />
+          </Key>
+          <Property Name="fruit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fruit_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fruit_quantity" Type="Int32" />
+          <Property Name="fruit_price" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="orders" Relationship="Self.FK__orders__fruit_id__44FF419A" FromRole="fruits" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="users_id" Type="Int32" />
+          <Property Name="order_date" Type="DateTime" Precision="3" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="order_quantity" Type="Int32" />
+          <Property Name="fruit_id" Type="Int32" />
+          <Property Name="Total_Price" Type="Decimal" Precision="21" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="fruit" Relationship="Self.FK__orders__fruit_id__44FF419A" FromRole="orders" ToRole="fruits" />
+          <NavigationProperty Name="user" Relationship="Self.FK__orders__users_id__440B1D61" FromRole="orders" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="users_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="users_name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="types_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="orders" Relationship="Self.FK__orders__users_id__440B1D61" FromRole="users" ToRole="orders" />
+        </EntityType>
+        <Association Name="FK__orders__fruit_id__44FF419A">
+          <End Role="fruits" Type="Self.fruit" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fruits">
+              <PropertyRef Name="fruit_id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="fruit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__orders__users_id__440B1D61">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="users_id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fruitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="fruits" EntityType="Self.fruit" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK__orders__fruit_id__44FF419A" Association="Self.FK__orders__fruit_id__44FF419A">
+            <End Role="fruits" EntitySet="fruits" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__orders__users_id__440B1D61" Association="Self.FK__orders__users_id__440B1D61">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="fruitModelStoreContainer" CdmEntityContainer="fruitEntities">
+          <EntitySetMapping Name="fruits">
+            <EntityTypeMapping TypeName="fruitModel.fruit">
+              <MappingFragment StoreEntitySet="fruits">
+                <ScalarProperty Name="fruit_id" ColumnName="fruit_id" />
+                <ScalarProperty Name="fruit_name" ColumnName="fruit_name" />
+                <ScalarProperty Name="fruit_quantity" ColumnName="fruit_quantity" />
+                <ScalarProperty Name="fruit_price" ColumnName="fruit_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="fruitModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="users_id" ColumnName="users_id" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="order_quantity" ColumnName="order_quantity" />
+                <ScalarProperty Name="fruit_id" ColumnName="fruit_id" />
+                <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="fruitModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="users_id" ColumnName="users_id" />
+                <ScalarProperty Name="users_password" ColumnName="users_password" />
+                <ScalarProperty Name="users_name" ColumnName="users_name" />
+                <ScalarProperty Name="types_user" ColumnName="types_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

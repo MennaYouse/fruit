@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="fruitModelStoreContainer" CdmEntityContainer="fruitEntities">
+    <EntitySetMapping Name="fruits">
+      <EntityTypeMapping TypeName="fruitModel.fruit">
+        <MappingFragment StoreEntitySet="fruits">
+          <ScalarProperty Name="fruit_id" ColumnName="fruit_id" />
+          <ScalarProperty Name="fruit_name" ColumnName="fruit_name" />
+          <ScalarProperty Name="fruit_quantity" ColumnName="fruit_quantity" />
+          <ScalarProperty Name="fruit_price" ColumnName="fruit_price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="fruitModel.order">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="users_id" ColumnName="users_id" />
+          <ScalarProperty Name="order_date" ColumnName="order_date" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="order_quantity" ColumnName="order_quantity" />
+          <ScalarProperty Name="fruit_id" ColumnName="fruit_id" />
+          <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="fruitModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="users_id" ColumnName="users_id" />
+          <ScalarProperty Name="users_password" ColumnName="users_password" />
+          <ScalarProperty Name="users_name" ColumnName="users_name" />
+          <ScalarProperty Name="types_user" ColumnName="types_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

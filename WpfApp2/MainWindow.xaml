@@ -1,0 +1,16 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Label Height="37" Width="150" Content="username" FontSize="23" Margin="140,68,510,329"></Label>
+        <TextBox Height="40" Width="220" Name="usersname" Margin="290,66,290,328" ></TextBox>
+        <Label Height="37" Width="150" Content="password" FontSize="23" Margin="140,137,510,260" ></Label>
+        <PasswordBox Height="40" Width="220" Name="pasword" Margin="290,137,290,257" ></PasswordBox>
+        <Button Height="50" Width="120" Content="Login" FontSize="23" Margin="340,341,340,43" Click="Button_Click" ></Button>
+    </Grid>
+</Window>
